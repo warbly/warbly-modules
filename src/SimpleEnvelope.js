@@ -1,6 +1,7 @@
 import { InterfaceParam } from '@warbly/core';
 
-function SimpleEnvelope(opts = {}) {
+function SimpleEnvelope(context, opts = {}) {
+  this.context = context;
   this.output = opts.connect;
 
   this.attack = new InterfaceParam({

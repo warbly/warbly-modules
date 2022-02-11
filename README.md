@@ -48,9 +48,9 @@ The `SimpleEnvelope` is a linear response Attack-Release (AR) envelope.
 
 #### Constructor
 
-`new SimpleEnvelope([options])`
+`new SimpleEnvelope(context, [options])`
 
-Create a SimpleEnvelope instance. `options` is an object containing configuration settings for the instance. Configurable options and their default values:
+Create a SimpleEnvelope instance. `context` must reference an [`AudioContext`](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext) instance. `options` is an object containing configuration settings for the instance. Configurable options and their default values:
 
 ```js
 const defaults = {
