@@ -1,6 +1,8 @@
 class SimpleReverb {
   #context;
+
   #seconds;
+
   #decay;
 
   constructor(context, opts = {}) {
