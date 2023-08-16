@@ -1,43 +1,65 @@
-import { InterfaceParam } from '@warbly/core';
+class SimpleEnvelope {
+  #context;
 
-function SimpleEnvelope(context, opts = {}) {
-  this.context = context;
-  this.output = opts.connect;
+  #attack;
 
-  this.attack = new InterfaceParam({
-    defaultValue: 0.1,
-    value: opts.attack,
-  });
+  #release;
 
-  this.release = new InterfaceParam({
-    defaultValue: 0.4,
-    value: opts.release,
-  });
+  constructor(context, opts = {}) {
+    this.#context = context;
+    this.output = undefined;
 
-  this.runEnvelope = (time, stages) => {
+    this.#attack = opts.attack || 0.1;
+    this.#release = opts.release || 0.4;
+  }
+
+  #run(stages, time) {
     this.output.setValueAtTime(0, time);
 
-    let t = time;
-    stages.forEach((stage) => {
-      t += stage.time;
-      this.output.linearRampToValueAtTime(stage.value, t);
-    });
-  };
-}
+    let timeAccumulator = time;
+    for (let i = 0; i < stages.length; i += 1) {
+      const stage = stages[i];
+      timeAccumulator += stage.time;
+      this.output.linearRampToValueAtTime(stage.value, timeAccumulator);
+    }
+  }
 
-SimpleEnvelope.prototype = {
-  trigger(time = this.context.currentTime) {
+  get attack() {
+    return this.#attack;
+  }
+
+  set attack(value) {
+    this.#attack = value;
+  }
+
+  get release() {
+    return this.#release;
+  }
+
+  set release(value) {
+    this.#release = value;
+  }
+
+  get length() {
+    return this.#attack + this.#release;
+  }
+
+  connect(destination) {
+    this.output = destination.input || destination;
+  }
+
+  disconnect() {
+    this.output = undefined;
+  }
+
+  trigger(time = this.#context.currentTime) {
     const stages = [
-      { value: 1, time: this.attack.value },
-      { value: 0, time: this.release.value },
+      { value: 1, time: this.#attack },
+      { value: 0, time: this.#release },
     ];
 
-    this.runEnvelope(time, stages);
-  },
-
-  getLength() {
-    return this.attack.value + this.release.value;
-  },
-};
+    this.#run(stages, time);
+  }
+}
 
 export default SimpleEnvelope;
