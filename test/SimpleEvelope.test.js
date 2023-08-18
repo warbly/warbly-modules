@@ -17,15 +17,6 @@ describe('SimpleEnvelope', () => {
   });
 
   describe('options', () => {
-    it('can be initialized with an output option', () => {
-      const parameter = 'output';
-      const options = {
-        [parameter]: new AudioParamMock(),
-      };
-      const instance = new SimpleEnvelope(audioContext, options);
-      expect(instance[parameter]).toBe(options[parameter]);
-    });
-
     it('can be initialized with an attack option', () => {
       const parameter = 'attack';
       const options = {
@@ -53,18 +44,6 @@ describe('SimpleEnvelope', () => {
 
     it('should not define a default value', () => {
       expect(simpleEnvelope.output).toBeUndefined();
-    });
-
-    it('should be assignable to a Web Audio node', () => {
-      const node = new AudioNodeMock();
-      simpleEnvelope.output = node;
-      expect(simpleEnvelope.output).toBe(node);
-    });
-
-    it('should be assignable to a Web Audio parameter', () => {
-      const parameter = new AudioParamMock();
-      simpleEnvelope.output = parameter;
-      expect(simpleEnvelope.output).toBe(parameter);
     });
   });
 
@@ -149,6 +128,18 @@ describe('SimpleEnvelope', () => {
       const audioNode = new AudioNodeMock();
       expect(simpleEnvelope.connect(audioNode)).toBeUndefined();
     });
+
+    it('should update `.output` given a Web Audio node', () => {
+      const audioNode = new AudioNodeMock();
+      simpleEnvelope.connect(audioNode);
+      expect(simpleEnvelope.output).toBe(audioNode);
+    });
+
+    it('should update `.output` given a Web Audio parameter', () => {
+      const audioParam = new AudioParamMock();
+      simpleEnvelope.connect(audioParam);
+      expect(simpleEnvelope.output).toBe(audioParam);
+    });
   });
 
   describe('.disconnect()', () => {
@@ -161,6 +152,11 @@ describe('SimpleEnvelope', () => {
     it('should return `undefined`', () => {
       const node = new AudioNodeMock();
       expect(simpleEnvelope.disconnect(node)).toBeUndefined();
+    });
+
+    it('should update `.output`', () => {
+      simpleEnvelope.disconnect();
+      expect(simpleEnvelope.output).toBe(undefined);
     });
   });
 
