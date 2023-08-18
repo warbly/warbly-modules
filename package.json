@@ -12,8 +12,5 @@
   },
   "bugs": {
     "url": "https://github.com/warbly/warbly/issues"
-  },
-  "dependencies": {
-    "@warbly/core": "^0.3.2"
   }
 }
