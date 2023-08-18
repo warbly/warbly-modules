@@ -1,14 +1,15 @@
 class SimpleEnvelope {
   #context;
 
+  #output;
+
   #attack;
 
   #release;
 
   constructor(context, opts = {}) {
     this.#context = context;
-    this.output = undefined;
-
+    this.#output = opts.output || undefined;
     this.#attack = opts.attack || 0.1;
     this.#release = opts.release || 0.4;
   }
@@ -22,6 +23,14 @@ class SimpleEnvelope {
       timeAccumulator += stage.time;
       this.output.linearRampToValueAtTime(stage.value, timeAccumulator);
     }
+  }
+
+  get output() {
+    return this.#output;
+  }
+
+  set output(value) {
+    this.#output = value;
   }
 
   get attack() {
