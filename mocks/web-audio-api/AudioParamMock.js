@@ -1,7 +1,7 @@
 class AudioParamMock {
-  setValueAtTime(value, time) {}
+  setValueAtTime() {}
 
-  linearRampToValueAtTime(value, time) {}
+  linearRampToValueAtTime() {}
 }
 
 export default AudioParamMock;
