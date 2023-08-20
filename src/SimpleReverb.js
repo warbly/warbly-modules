@@ -8,7 +8,7 @@ class SimpleReverb {
   constructor(context, opts = {}) {
     this.#context = context;
     this.#seconds = opts.seconds || 3;
-    this.#decay = opts.seconds || 2;
+    this.#decay = opts.decay || 2;
 
     const convolver = context.createConvolver();
     this.input = convolver;
