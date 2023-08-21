@@ -1,6 +1,10 @@
 class SimpleReverb {
   #context;
 
+  #input;
+
+  #output;
+
   #seconds;
 
   #decay;
@@ -11,8 +15,8 @@ class SimpleReverb {
     this.#decay = opts.decay || 2;
 
     const convolver = context.createConvolver();
-    this.input = convolver;
-    this.output = convolver;
+    this.#input = convolver;
+    this.#output = convolver;
 
     this.#buildImpulse();
   }
@@ -30,7 +34,15 @@ class SimpleReverb {
       impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
     }
 
-    this.input.buffer = impulse;
+    this.#input.buffer = impulse;
+  }
+
+  get input() {
+    return this.#input;
+  }
+
+  get output() {
+    return this.#output;
   }
 
   get seconds() {
@@ -52,11 +64,11 @@ class SimpleReverb {
   }
 
   connect(destination) {
-    this.output.connect(destination.input || destination);
+    this.#output.connect(destination.input || destination);
   }
 
   disconnect() {
-    this.output.disconnect();
+    this.#output.disconnect();
   }
 }
 
