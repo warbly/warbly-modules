@@ -41,46 +41,50 @@ describe('SimpleReverb', () => {
   });
 
   describe('.input', () => {
+    const property = 'input';
+
     it('should have property', () => {
-      const property = 'input';
       expect(simpleReverb).toHaveProperty(property);
     });
 
     it('should define a default value', () => {
-      expect(simpleReverb.input).toBeDefined();
+      expect(simpleReverb[property]).toBeDefined();
     });
   });
 
   describe('.output', () => {
+    const property = 'output';
+
     it('should have property', () => {
-      const property = 'output';
       expect(simpleReverb).toHaveProperty(property);
     });
 
     it('should define a default value', () => {
-      expect(simpleReverb.output).toBeDefined();
+      expect(simpleReverb[property]).toBeDefined();
     });
   });
 
   describe('.seconds', () => {
+    const property = 'seconds';
+
     it('should have property', () => {
-      const property = 'seconds';
       expect(simpleReverb).toHaveProperty(property);
     });
 
     it('should define a default value', () => {
-      expect(simpleReverb.seconds).toBeDefined();
+      expect(simpleReverb[property]).toBeDefined();
     });
   });
 
   describe('.decay', () => {
+    const property = 'decay';
+
     it('should have property', () => {
-      const property = 'decay';
       expect(simpleReverb).toHaveProperty(property);
     });
 
     it('should define a default value', () => {
-      expect(simpleReverb.decay).toBeDefined();
+      expect(simpleReverb[property]).toBeDefined();
     });
   });
 

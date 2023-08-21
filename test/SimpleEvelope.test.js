@@ -37,53 +37,57 @@ describe('SimpleEnvelope', () => {
   });
 
   describe('.output', () => {
+    const property = 'output';
+
     it('should have property', () => {
-      const property = 'output';
       expect(simpleEnvelope).toHaveProperty(property);
     });
 
     it('should not define a default value', () => {
-      expect(simpleEnvelope.output).toBeUndefined();
+      expect(simpleEnvelope[property]).toBeUndefined();
     });
   });
 
   describe('.attack', () => {
+    const property = 'attack';
+
     it('should have property', () => {
-      const property = 'attack';
       expect(simpleEnvelope).toHaveProperty(property);
     });
 
     it('should define a default value', () => {
-      expect(simpleEnvelope.attack).toBeDefined();
+      expect(simpleEnvelope[property]).toBeDefined();
     });
 
     it('should be assignable', () => {
       const value = 1.0;
-      simpleEnvelope.attack = value;
-      expect(simpleEnvelope.attack).toBe(value);
+      simpleEnvelope[property] = value;
+      expect(simpleEnvelope[property]).toBe(value);
     });
   });
 
   describe('.release', () => {
+    const property = 'release';
+
     it('should have property', () => {
-      const property = 'release';
       expect(simpleEnvelope).toHaveProperty(property);
     });
 
     it('should define a default value', () => {
-      expect(simpleEnvelope.release).toBeDefined();
+      expect(simpleEnvelope[property]).toBeDefined();
     });
 
     it('should be assignable', () => {
       const value = 1.0;
-      simpleEnvelope.release = value;
-      expect(simpleEnvelope.release).toBe(value);
+      simpleEnvelope[property] = value;
+      expect(simpleEnvelope[property]).toBe(value);
     });
   });
 
   describe('.length', () => {
+    const property = 'length';
+
     it('should have property', () => {
-      const property = 'length';
       expect(simpleEnvelope).toHaveProperty(property);
     });
 
@@ -93,7 +97,7 @@ describe('SimpleEnvelope', () => {
       const expected = attack + release;
       simpleEnvelope.attack = attack;
       simpleEnvelope.release = release;
-      expect(simpleEnvelope.length).toBe(expected);
+      expect(simpleEnvelope[property]).toBe(expected);
     });
 
     it('should update when attack and release properties change', () => {
@@ -101,13 +105,13 @@ describe('SimpleEnvelope', () => {
       const release1 = 0.9;
       simpleEnvelope.attack = attack1;
       simpleEnvelope.release = release1;
-      const length1 = simpleEnvelope.length;
+      const length1 = simpleEnvelope[property];
 
       const attack2 = 0.2;
       const release2 = 1.0;
       simpleEnvelope.attack = attack2;
       simpleEnvelope.release = release2;
-      const length2 = simpleEnvelope.length;
+      const length2 = simpleEnvelope[property];
 
       const expected1 = attack1 + release1;
       const expected2 = attack2 + release2;
