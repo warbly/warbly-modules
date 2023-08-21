@@ -74,6 +74,12 @@ describe('SimpleReverb', () => {
     it('should define a default value', () => {
       expect(simpleReverb[property]).toBeDefined();
     });
+
+    it('should be assignable', () => {
+      const value = 1.0;
+      simpleReverb[property] = value;
+      expect(simpleReverb[property]).toBe(value);
+    });
   });
 
   describe('.decay', () => {
@@ -85,6 +91,12 @@ describe('SimpleReverb', () => {
 
     it('should define a default value', () => {
       expect(simpleReverb[property]).toBeDefined();
+    });
+
+    it('should be assignable', () => {
+      const value = 1.0;
+      simpleReverb[property] = value;
+      expect(simpleReverb[property]).toBe(value);
     });
   });
 
