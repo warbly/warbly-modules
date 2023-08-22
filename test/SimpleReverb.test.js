@@ -50,6 +50,10 @@ describe('SimpleReverb', () => {
     it('should define a default value', () => {
       expect(simpleReverb[property]).toBeDefined();
     });
+
+    it('should be an instance of a Web Audio ConvolverNode', () => {
+      expect(simpleReverb[property]).toBeInstanceOf(ConvolverNodeMock);
+    });
   });
 
   describe('.output', () => {
@@ -61,6 +65,10 @@ describe('SimpleReverb', () => {
 
     it('should define a default value', () => {
       expect(simpleReverb[property]).toBeDefined();
+    });
+
+    it('should be an instance of a Web Audio ConvolverNode', () => {
+      expect(simpleReverb[property]).toBeInstanceOf(ConvolverNodeMock);
     });
   });
 
