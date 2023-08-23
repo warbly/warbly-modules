@@ -36,18 +36,6 @@ describe('SimpleEnvelope', () => {
     });
   });
 
-  describe('.output', () => {
-    const property = 'output';
-
-    it('should have property', () => {
-      expect(simpleEnvelope).toHaveProperty(property);
-    });
-
-    it('should not define a default value', () => {
-      expect(simpleEnvelope[property]).toBeUndefined();
-    });
-  });
-
   describe('.attack', () => {
     const property = 'attack';
 
@@ -132,18 +120,6 @@ describe('SimpleEnvelope', () => {
       const audioNode = new AudioNodeMock();
       expect(simpleEnvelope.connect(audioNode)).toBeUndefined();
     });
-
-    it('should update `.output` given a Web Audio node', () => {
-      const audioNode = new AudioNodeMock();
-      simpleEnvelope.connect(audioNode);
-      expect(simpleEnvelope.output).toBe(audioNode);
-    });
-
-    it('should update `.output` given a Web Audio parameter', () => {
-      const audioParam = new AudioParamMock();
-      simpleEnvelope.connect(audioParam);
-      expect(simpleEnvelope.output).toBe(audioParam);
-    });
   });
 
   describe('.disconnect()', () => {
@@ -156,11 +132,6 @@ describe('SimpleEnvelope', () => {
     it('should return `undefined`', () => {
       const node = new AudioNodeMock();
       expect(simpleEnvelope.disconnect(node)).toBeUndefined();
-    });
-
-    it('should update `.output`', () => {
-      simpleEnvelope.disconnect();
-      expect(simpleEnvelope.output).toBe(undefined);
     });
   });
 

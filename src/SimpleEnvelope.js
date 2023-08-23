@@ -1,7 +1,7 @@
 class SimpleEnvelope {
   #context;
 
-  #output;
+  #destination;
 
   #attack;
 
@@ -9,24 +9,20 @@ class SimpleEnvelope {
 
   constructor(context, opts = {}) {
     this.#context = context;
-    this.#output = undefined;
+    this.#destination = undefined;
     this.#attack = opts.attack || 0.1;
     this.#release = opts.release || 0.4;
   }
 
   #run(stages, time) {
-    this.#output.setValueAtTime(0, time);
+    this.#destination.setValueAtTime(0, time);
 
     let timeAccumulator = time;
     for (let i = 0; i < stages.length; i += 1) {
       const stage = stages[i];
       timeAccumulator += stage.time;
-      this.#output.linearRampToValueAtTime(stage.value, timeAccumulator);
+      this.#destination.linearRampToValueAtTime(stage.value, timeAccumulator);
     }
-  }
-
-  get output() {
-    return this.#output;
   }
 
   get attack() {
@@ -50,11 +46,11 @@ class SimpleEnvelope {
   }
 
   connect(destination) {
-    this.#output = destination.input || destination;
+    this.#destination = destination.input || destination;
   }
 
   disconnect() {
-    this.#output = undefined;
+    this.#destination = undefined;
   }
 
   trigger(time = this.#context.currentTime) {
