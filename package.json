@@ -1,7 +1,7 @@
 {
   "name": "@warbly/modules",
   "version": "0.5.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "homepage": "https://github.com/warbly/warbly#readme",
   "author": "Ryan Todd Garza <ryantoddgarza@gmail.com>",
   "license": "MIT",
