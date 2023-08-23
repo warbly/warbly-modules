@@ -1,5 +1,6 @@
 import AudioBufferMock from './AudioBufferMock';
 import ConvolverNodeMock from './ConvolverNodeMock';
+import GainNodeMock from './GainNodeMock';
 
 class BaseAudioContextMock {
   createBuffer() {
@@ -8,6 +9,10 @@ class BaseAudioContextMock {
 
   createConvolver() {
     return new ConvolverNodeMock();
+  }
+
+  createGain() {
+    return new GainNodeMock();
   }
 }
 
