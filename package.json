@@ -5,15 +5,14 @@
   "files": [
     "src"
   ],
-  "homepage": "https://github.com/warbly/warbly#readme",
+  "homepage": "https://github.com/warbly/warbly-modules#readme",
   "author": "Ryan Todd Garza <ryantoddgarza@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/warbly/warbly.git",
-    "directory": "packages/warbly-modules"
+    "url": "https://github.com/warbly/warbly-modules.git"
   },
   "bugs": {
-    "url": "https://github.com/warbly/warbly/issues"
+    "url": "https://github.com/warbly/warbly-modules/issues"
   }
 }
