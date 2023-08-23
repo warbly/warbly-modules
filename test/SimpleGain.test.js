@@ -1,33 +1,33 @@
 import SimpleGain from '../src/SimpleGain';
-import AudioContextMock from '../mocks/web-audio-api/AudioContextMock';
-import AudioNodeMock from '../mocks/web-audio-api/AudioNodeMock';
-import AudioParamMock from '../mocks/web-audio-api/AudioParamMock';
-import GainNodeMock from '../mocks/web-audio-api/GainNodeMock';
+import MockAudioContext from '../mocks/web-audio-api/MockAudioContext';
+import MockAudioNode from '../mocks/web-audio-api/MockAudioNode';
+import MockAudioParam from '../mocks/web-audio-api/MockAudioParam';
+import MockGainNode from '../mocks/web-audio-api/MockGainNode';
 
-jest.mock('../mocks/web-audio-api/AudioContextMock');
-jest.mock('../mocks/web-audio-api/AudioNodeMock');
-jest.mock('../mocks/web-audio-api/AudioParamMock');
-jest.mock('../mocks/web-audio-api/GainNodeMock');
+jest.mock('../mocks/web-audio-api/MockAudioContext');
+jest.mock('../mocks/web-audio-api/MockAudioNode');
+jest.mock('../mocks/web-audio-api/MockAudioParam');
+jest.mock('../mocks/web-audio-api/MockGainNode');
 
 describe('SimpleEnvelope', () => {
-  let audioContext;
+  let mockAudioContext;
   let simpleGain;
 
   beforeEach(() => {
-    audioContext = new AudioContextMock();
-    const gainNodeMock = new GainNodeMock();
-    const audioParamMock = new AudioParamMock();
+    mockAudioContext = new MockAudioContext();
+    const mockGainNode = new MockGainNode();
+    const mockAudioParam = new MockAudioParam();
 
     // TODO: Set up manual mocks correctly
     // https://jestjs.io/docs/manual-mocks
     // Then replace `Object.defineProperty` with `jest.spyOn`
-    Object.defineProperty(gainNodeMock, 'gain', {
-      get: jest.fn().mockReturnValue(audioParamMock),
+    Object.defineProperty(mockGainNode, 'gain', {
+      get: jest.fn().mockReturnValue(mockAudioParam),
     });
     // jest.spyOn(gainNodeMock, 'gain', 'get').mockReturnValue(audioParamMock);
 
-    audioContext.createGain.mockReturnValue(gainNodeMock);
-    simpleGain = new SimpleGain(audioContext);
+    mockAudioContext.createGain.mockReturnValue(mockGainNode);
+    simpleGain = new SimpleGain(mockAudioContext);
   });
 
   describe('options', () => {
@@ -36,7 +36,7 @@ describe('SimpleEnvelope', () => {
       const options = {
         [parameter]: 0.5,
       };
-      const instance = new SimpleGain(audioContext, options);
+      const instance = new SimpleGain(mockAudioContext, options);
       expect(instance[parameter]).toBe(options[parameter]);
     });
   });
@@ -53,7 +53,7 @@ describe('SimpleEnvelope', () => {
     });
 
     it('should be an instance of a Web Audio GainNode', () => {
-      expect(simpleGain[property]).toBeInstanceOf(GainNodeMock);
+      expect(simpleGain[property]).toBeInstanceOf(MockGainNode);
     });
   });
 
@@ -69,7 +69,7 @@ describe('SimpleEnvelope', () => {
     });
 
     it('should be an instance of a Web Audio GainNode', () => {
-      expect(simpleGain[property]).toBeInstanceOf(GainNodeMock);
+      expect(simpleGain[property]).toBeInstanceOf(MockGainNode);
     });
   });
 
@@ -99,13 +99,13 @@ describe('SimpleEnvelope', () => {
     });
 
     it('should return `undefined`', () => {
-      const audioNode = new AudioNodeMock();
-      expect(simpleGain.connect(audioNode)).toBeUndefined();
+      const mockAudioNode = new MockAudioNode();
+      expect(simpleGain.connect(mockAudioNode)).toBeUndefined();
     });
 
     it('should call `.connect` on the ouput audio node', () => {
-      const audioNode = new AudioNodeMock();
-      simpleGain.connect(audioNode);
+      const mockAudioNode = new MockAudioNode();
+      simpleGain.connect(mockAudioNode);
       expect(simpleGain.output.connect).toHaveBeenCalled();
     });
   });
@@ -118,13 +118,13 @@ describe('SimpleEnvelope', () => {
     });
 
     it('should return `undefined`', () => {
-      const node = new AudioNodeMock();
-      expect(simpleGain.disconnect(node)).toBeUndefined();
+      const mockAudioNode = new MockAudioNode();
+      expect(simpleGain.disconnect(mockAudioNode)).toBeUndefined();
     });
 
     it('should call `.disconnect` on the ouput audio node', () => {
-      const audioNode = new AudioNodeMock();
-      simpleGain.disconnect(audioNode);
+      const mockAudioNode = new MockAudioNode();
+      simpleGain.disconnect(mockAudioNode);
       expect(simpleGain.output.disconnect).toHaveBeenCalled();
     });
   });

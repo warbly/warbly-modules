@@ -1,19 +1,19 @@
 import SimpleEnvelope from '../src/SimpleEnvelope';
-import AudioContextMock from '../mocks/web-audio-api/AudioContextMock';
-import AudioNodeMock from '../mocks/web-audio-api/AudioNodeMock';
-import AudioParamMock from '../mocks/web-audio-api/AudioParamMock';
+import MockAudioContext from '../mocks/web-audio-api/MockAudioContext';
+import MockAudioNode from '../mocks/web-audio-api/MockAudioNode';
+import MockAudioParam from '../mocks/web-audio-api/MockAudioParam';
 
-jest.mock('../mocks/web-audio-api/AudioContextMock');
-jest.mock('../mocks/web-audio-api/AudioNodeMock');
-jest.mock('../mocks/web-audio-api/AudioParamMock');
+jest.mock('../mocks/web-audio-api/MockAudioContext');
+jest.mock('../mocks/web-audio-api/MockAudioNode');
+jest.mock('../mocks/web-audio-api/MockAudioParam');
 
 describe('SimpleEnvelope', () => {
-  let audioContext;
+  let mockAudioContext;
   let simpleEnvelope;
 
   beforeEach(() => {
-    audioContext = new AudioContextMock();
-    simpleEnvelope = new SimpleEnvelope(audioContext);
+    mockAudioContext = new MockAudioContext();
+    simpleEnvelope = new SimpleEnvelope(mockAudioContext);
   });
 
   describe('options', () => {
@@ -22,7 +22,7 @@ describe('SimpleEnvelope', () => {
       const options = {
         [parameter]: 0.5,
       };
-      const instance = new SimpleEnvelope(audioContext, options);
+      const instance = new SimpleEnvelope(mockAudioContext, options);
       expect(instance[parameter]).toBe(options[parameter]);
     });
 
@@ -31,7 +31,7 @@ describe('SimpleEnvelope', () => {
       const options = {
         [parameter]: 0.5,
       };
-      const instance = new SimpleEnvelope(audioContext, options);
+      const instance = new SimpleEnvelope(mockAudioContext, options);
       expect(instance[parameter]).toBe(options[parameter]);
     });
   });
@@ -117,8 +117,8 @@ describe('SimpleEnvelope', () => {
     });
 
     it('should return `undefined`', () => {
-      const audioNode = new AudioNodeMock();
-      expect(simpleEnvelope.connect(audioNode)).toBeUndefined();
+      const mockAudioNode = new MockAudioNode();
+      expect(simpleEnvelope.connect(mockAudioNode)).toBeUndefined();
     });
   });
 
@@ -130,8 +130,8 @@ describe('SimpleEnvelope', () => {
     });
 
     it('should return `undefined`', () => {
-      const node = new AudioNodeMock();
-      expect(simpleEnvelope.disconnect(node)).toBeUndefined();
+      const mockAudioNode = new MockAudioNode();
+      expect(simpleEnvelope.disconnect(mockAudioNode)).toBeUndefined();
     });
   });
 
@@ -143,8 +143,8 @@ describe('SimpleEnvelope', () => {
     });
 
     it('should return `undefined`', () => {
-      const parameter = new AudioParamMock();
-      simpleEnvelope.connect(parameter);
+      const mockAudioParam = new MockAudioParam();
+      simpleEnvelope.connect(mockAudioParam);
       expect(simpleEnvelope.trigger()).toBeUndefined();
     });
   });

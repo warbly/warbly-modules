@@ -1,23 +1,23 @@
 import SimpleReverb from '../src/SimpleReverb';
-import AudioBufferMock from '../mocks/web-audio-api/AudioBufferMock';
-import AudioContextMock from '../mocks/web-audio-api/AudioContextMock';
-import AudioNodeMock from '../mocks/web-audio-api/AudioNodeMock';
-import ConvolverNodeMock from '../mocks/web-audio-api/ConvolverNodeMock';
+import MockAudioBuffer from '../mocks/web-audio-api/MockAudioBuffer';
+import MockAudioContext from '../mocks/web-audio-api/MockAudioContext';
+import MockAudioNode from '../mocks/web-audio-api/MockAudioNode';
+import MockConvolverNode from '../mocks/web-audio-api/MockConvolverNode';
 
-jest.mock('../mocks/web-audio-api/AudioBufferMock');
-jest.mock('../mocks/web-audio-api/AudioContextMock');
-jest.mock('../mocks/web-audio-api/AudioNodeMock');
-jest.mock('../mocks/web-audio-api/ConvolverNodeMock');
+jest.mock('../mocks/web-audio-api/MockAudioBuffer');
+jest.mock('../mocks/web-audio-api/MockAudioContext');
+jest.mock('../mocks/web-audio-api/MockAudioNode');
+jest.mock('../mocks/web-audio-api/MockConvolverNode');
 
 describe('SimpleReverb', () => {
-  let audioContext;
+  let mockAudioContext;
   let simpleReverb;
 
   beforeEach(() => {
-    audioContext = new AudioContextMock();
-    audioContext.createBuffer.mockReturnValue(new AudioBufferMock());
-    audioContext.createConvolver.mockReturnValue(new ConvolverNodeMock());
-    simpleReverb = new SimpleReverb(audioContext);
+    mockAudioContext = new MockAudioContext();
+    mockAudioContext.createBuffer.mockReturnValue(new MockAudioBuffer());
+    mockAudioContext.createConvolver.mockReturnValue(new MockConvolverNode());
+    simpleReverb = new SimpleReverb(mockAudioContext);
   });
 
   describe('options', () => {
@@ -26,7 +26,7 @@ describe('SimpleReverb', () => {
       const options = {
         [parameter]: 4.0,
       };
-      const instance = new SimpleReverb(audioContext, options);
+      const instance = new SimpleReverb(mockAudioContext, options);
       expect(instance[parameter]).toBe(options[parameter]);
     });
 
@@ -35,7 +35,7 @@ describe('SimpleReverb', () => {
       const options = {
         [parameter]: 3.0,
       };
-      const instance = new SimpleReverb(audioContext, options);
+      const instance = new SimpleReverb(mockAudioContext, options);
       expect(instance[parameter]).toBe(options[parameter]);
     });
   });
@@ -52,7 +52,7 @@ describe('SimpleReverb', () => {
     });
 
     it('should be an instance of a Web Audio ConvolverNode', () => {
-      expect(simpleReverb[property]).toBeInstanceOf(ConvolverNodeMock);
+      expect(simpleReverb[property]).toBeInstanceOf(MockConvolverNode);
     });
   });
 
@@ -68,7 +68,7 @@ describe('SimpleReverb', () => {
     });
 
     it('should be an instance of a Web Audio ConvolverNode', () => {
-      expect(simpleReverb[property]).toBeInstanceOf(ConvolverNodeMock);
+      expect(simpleReverb[property]).toBeInstanceOf(MockConvolverNode);
     });
   });
 
@@ -116,13 +116,13 @@ describe('SimpleReverb', () => {
     });
 
     it('should return `undefined`', () => {
-      const audioNode = new AudioNodeMock();
-      expect(simpleReverb.connect(audioNode)).toBeUndefined();
+      const mockAudioNode = new MockAudioNode();
+      expect(simpleReverb.connect(mockAudioNode)).toBeUndefined();
     });
 
     it('should call `.connect` on the ouput audio node', () => {
-      const audioNode = new AudioNodeMock();
-      simpleReverb.connect(audioNode);
+      const mockAudioNode = new MockAudioNode();
+      simpleReverb.connect(mockAudioNode);
       expect(simpleReverb.output.connect).toHaveBeenCalled();
     });
   });
@@ -135,13 +135,13 @@ describe('SimpleReverb', () => {
     });
 
     it('should return `undefined`', () => {
-      const node = new AudioNodeMock();
-      expect(simpleReverb.disconnect(node)).toBeUndefined();
+      const mockAudioNode = new MockAudioNode();
+      expect(simpleReverb.disconnect(mockAudioNode)).toBeUndefined();
     });
 
     it('should call `.disconnect` on the ouput audio node', () => {
-      const audioNode = new AudioNodeMock();
-      simpleReverb.disconnect(audioNode);
+      const mockAudioNode = new MockAudioNode();
+      simpleReverb.disconnect(mockAudioNode);
       expect(simpleReverb.output.disconnect).toHaveBeenCalled();
     });
   });

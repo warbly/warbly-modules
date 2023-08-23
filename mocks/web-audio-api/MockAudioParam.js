@@ -1,4 +1,4 @@
-class AudioParamMock {
+class MockAudioParam {
   get value() {}
 
   set value(value) {}
@@ -8,4 +8,4 @@ class AudioParamMock {
   linearRampToValueAtTime() {}
 }
 
-export default AudioParamMock;
+export default MockAudioParam;
