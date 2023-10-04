@@ -1,6 +1,7 @@
 import MockAudioBuffer from './MockAudioBuffer';
 import MockConvolverNode from './MockConvolverNode';
 import MockGainNode from './MockGainNode';
+import MockOscillatorNode from './MockOscillatorNode';
 
 class MockBaseAudioContext {
   createBuffer() {
@@ -13,6 +14,10 @@ class MockBaseAudioContext {
 
   createGain() {
     return new MockGainNode();
+  }
+
+  createOscillator() {
+    return new MockOscillatorNode();
   }
 }
 
