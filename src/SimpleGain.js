@@ -5,11 +5,11 @@ class SimpleGain {
 
   #output;
 
-  #gainValue;
+  #gain;
 
   constructor(context, opts = {}) {
     this.#context = context;
-    this.#gainValue = opts.gain || 1;
+    this.#gain = opts.gain || 1;
 
     const gainNode = context.createGain();
     this.#input = gainNode;
@@ -19,7 +19,7 @@ class SimpleGain {
   }
 
   #setGain() {
-    this.#output.gain.value = this.#gainValue;
+    this.#output.gain.value = this.#gain;
   }
 
   get input() {
@@ -31,11 +31,11 @@ class SimpleGain {
   }
 
   get gain() {
-    return this.#gainValue;
+    return this.#gain;
   }
 
   set gain(value) {
-    this.#gainValue = value;
+    this.#gain = value;
     this.#setGain();
   }
 
